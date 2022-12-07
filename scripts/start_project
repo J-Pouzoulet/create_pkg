@@ -1,0 +1,49 @@
+#!/usr/bin/env python
+# -- coding: utf-8 --
+
+import sys
+import os
+import time
+
+#project_name = sys.argv[1]
+project_name = f'{sys.argv[1]}'
+os.system(f'mkdir folder_{project_name}')
+os.system(f'touch folder_{project_name}/requirements.txt')
+os.system(f'touch folder_{project_name}/setup.py')
+os.system(f'mkdir folder_{project_name}/scripts')
+os.system(f'touch folder_{project_name}/scripts/run_{project_name}')
+os.system(f'mkdir folder_{project_name}/{project_name}')
+os.system(f'touch folder_{project_name}/{project_name}/__init__.py')
+os.system(f'touch folder_{project_name}/{project_name}/{project_name}.py')
+os.system(f'echo "pandas\nseaborn\nnumpy\nmatplotlib\nsklearn\nstatsmodels\nscipy\npatsy\npickle" >> folder_{project_name}/requirements.txt')
+
+a = '{'
+b = '}'
+message = f'''from setuptools import setup
+from setuptools import find_packages
+
+with open('requirements.txt') as f:
+    content = f.readlines()
+    requirements = [x.strip() for x in content if 'git+' not in x]
+
+setup(
+    name='{project_name}',
+    version='0.0.0.1',
+    packages=find_packages(),
+    description="Creation automatisé d'une architecture ML",
+    author=...,
+    author_email='...',
+    scripts=['scripts/run_{project_name}'],
+    # package_data={a}
+    #     "": ["*.joblib"],
+    # {b},
+    # include_package_data=True,
+    install_requires=requirements
+)'''
+#time.sleep(3)
+#os.system(f'rm -rf dossier{project_name}')
+
+with open(f'folder_{project_name}/setup.py', 'w') as myfile:
+    myfile.writelines(message)
+
+print(project_name)
